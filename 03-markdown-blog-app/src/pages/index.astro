@@ -24,7 +24,7 @@ const blogPosts = await getCollection("blog");
       </h1>
 
       <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
-        {blogPosts.map((post) => <TypedBlogPost post={post} />)}
+        {blogPosts.map((post) => <TypedBlogPost {...post} />)}
       </div>
     </div>
   </section>

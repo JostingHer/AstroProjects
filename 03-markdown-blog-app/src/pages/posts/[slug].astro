@@ -13,13 +13,6 @@ export const getStaticPaths = (async () => {
   }));
 
   return dataBlogPosts;
-
-  // return [
-  //   {
-  //     params: { slug: 'post-01' },
-  //     props: { title: 'Primer Post' }, // {  post: post }
-  //   },
-  // ];
 }) satisfies GetStaticPaths;
 
 // const { slug } = Astro.params;
@@ -27,7 +20,7 @@ const { post } = Astro.props;
 const frontmatter = post.data;
 
 const { Content, headings } = await post.render();
-console.log("headings", headings);
+// console.log("headings", headings);
 ---
 
 <BlogLayout title={frontmatter.title}>

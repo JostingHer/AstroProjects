@@ -2,8 +2,7 @@
 import { Image, Picture } from "astro:assets";
 import MainLayout from "src/layouts/MainLayout.astro";
 
-// import post05Img from "@images/post-01.png";
-
+//import post05Img from "@images/post-05.png";
 const post05Img = "/assets/images/post-05.png";
 ---
 
@@ -61,23 +60,21 @@ const post05Img = "/assets/images/post-05.png";
   sizes={`(max-width: 360px) 240px, (max-width: 720px) 540px, (max-width: 1600px) 720px, ${post05Img.width}px`} -->
   <!-- width={post05Img.width / 2}
   densities={[1.5, 2]} -->
-  <Picture src={post05Img} alt="Imagen del post" />
+  <!-- <Picture src={post05Img} alt="Imagen del post" />
   <div
     style={{
       height: "3000px",
     }}
-  >
-  </div>
-
-  <img
-    loading="lazy"
-    src="/assets/images/post-01.png"
-    width="250"
-    height="250"
-  />
+  > -->
 </MainLayout>
+
+<img loading="lazy" src="/assets/images/post-01.png" width="250" height="250" />
+
 <style>
   h1 {
     @apply text-white mt-10;
+  }
+  img {
+    @apply my-5;
   }
 </style>
