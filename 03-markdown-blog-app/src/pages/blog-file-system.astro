@@ -3,14 +3,11 @@ import { getCollection } from "astro:content";
 import { siteConfig } from "@config/site-config";
 import MainLayout from "../layouts/MainLayout.astro";
 import BlogPost from "src/components/BlogPost.astro";
-import TypedBlogPost from "@components/TypedBlogPost.astro";
 
-const blogPosts = await getCollection("blog");
-// console.log("post desde collections", blogPosts);
-// console.log("post desde collections", blogPosts[0].id);
-// console.log("post desde collections", blogPosts[0].slug);
-// console.log("post desde collections", blogPosts[0].data);
-// console.log("post desde collections", blogPosts[0].body);
+// const blogPosts = await getCollection(".blog");
+const blogPosts = await Astro.glob("../content/blog/*");
+
+//console.log("consulta de files system md", blogPosts);
 ---
 
 <MainLayout title="Fernando's Blog">
@@ -24,7 +21,7 @@ const blogPosts = await getCollection("blog");
       </h1>
 
       <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
-        {blogPosts.map((post) => <TypedBlogPost post={post} />)}
+        {blogPosts.map((post) => <BlogPost {...post} />)}
       </div>
     </div>
   </section>
