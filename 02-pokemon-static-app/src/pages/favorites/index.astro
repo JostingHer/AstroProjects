@@ -1,0 +1,35 @@
+---
+import { FavoritePokemons } from "@components/FavoritePokemons";
+import Title from "@components/shared/Title.astro";
+import MainLayout from "@layouts/MainLayout.astro";
+import type { GetStaticPaths } from "astro";
+import type { PokemonListResponse } from "src/interfaces/pokemos-list.response";
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
+
+  const { results } = (await response.json()) as PokemonListResponse;
+
+  return paginate(results, { pageSize: 20 });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+---
+
+<MainLayout title="Favoritos">
+  <Title>Favoritos</Title>
+  <!-- <video controls="" autoplay="" transition:persist="playing-video">
+    <source
+      src="https://ia804502.us.archive.org/33/items/GoldenGa1939_3/GoldenGa1939_3_512kb.mp4"
+      type="video/mp4"
+    />
+  </video> -->
+
+  <!-- <Counter
+      transition:persist="counter"
+      transition:persist-props
+      client:visible
+      initValue={10}
+    /> -->
+  <FavoritePokemons client:only="solid-js" />
+</MainLayout>

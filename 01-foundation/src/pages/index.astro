@@ -1,0 +1,20 @@
+---
+import MainLayouts from "../layouts/MainLayouts.astro";
+---
+
+<MainLayouts title="index">
+  <h1>Astro index</h1>
+
+  <p>momento actual estatico : {new Date().toLocaleTimeString()}</p>
+  <p id="dinamicoTime">
+    momento actual dinamico: {new Date().toLocaleTimeString()}
+  </p>
+
+  <script>
+    let time = new Date().toLocaleTimeString();
+
+    let p = document.querySelector("#dinamicoTime") as HTMLElement;
+
+    p.textContent = p.textContent + time;
+  </script>
+</MainLayouts>

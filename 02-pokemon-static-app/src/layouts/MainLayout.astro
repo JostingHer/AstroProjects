@@ -1,0 +1,53 @@
+---
+import { siteInfo } from "consts/site-info";
+import NavBar from "@components/shared/NavBar.astro";
+import { ViewTransitions } from "astro:transitions";
+
+interface Props {
+  title?: string;
+  image?: string;
+  description?: string;
+}
+
+const {
+  title = siteInfo.title,
+  description = siteInfo.description,
+  image,
+} = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href={image} />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO -->
+    <meta name="description" content={description} />
+    <meta name="author" content={"Josting Hernandez"} />
+
+    <!-- OG Metatags -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+
+    <!-- Required -->
+    <title>{title}</title>
+    <ViewTransitions />
+    <!-- <style>
+      @view-transition {
+        navigation: auto; /* enabled! */
+      }
+    </style> -->
+  </head>
+  <body class="bg-slate-800 text-slate-100">
+    <NavBar />
+    <main
+      transition:animate="fade"
+      class="p-4 mt-4 rounded-md border border-slate-700 m-auto max-w-3xl"
+    >
+      <slot />
+    </main>
+  </body>
+</html>
