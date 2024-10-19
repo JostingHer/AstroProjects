@@ -12,7 +12,7 @@ const frontmatter = post.data;
 ---
 
 <div class="lg:flex">
-  <!-- <Image
+  <Image
     class="object-cover w-full h-56 rounded-lg lg:w-64"
     src={frontmatter.image}
     alt={frontmatter.title}
@@ -21,16 +21,16 @@ const frontmatter = post.data;
     quality="low"
     loading="lazy"
     transition:name={`${post.slug}-image`}
-  /> -->
+  />
 
-  <img
+  <!-- <img
     class="object-cover w-full h-56 rounded-lg lg:w-64"
     src={frontmatter.image}
     alt={frontmatter.title}
     width={500}
     width={500}
     transition:name={`${post.slug}-image`}
-  />
+  /> -->
 
   <div class="flex flex-col justify-between py-6 lg:mx-6">
     <a
