@@ -5,12 +5,17 @@ import MainLayout from "../layouts/MainLayout.astro";
 import BlogPost from "src/components/BlogPost.astro";
 import TypedBlogPost from "@components/TypedBlogPost.astro";
 
-const blogPosts = await getCollection("blog");
+//const blogPosts = await getCollection("blog");
 // console.log("post desde collections", blogPosts);
 // console.log("post desde collections", blogPosts[0].id);
 // console.log("post desde collections", blogPosts[0].slug);
 // console.log("post desde collections", blogPosts[0].data);
 // console.log("post desde collections", blogPosts[0].body);
+
+const blogPosts = await getCollection(
+  "blog",
+  (post) => post.data.isDraft === false
+);
 ---
 
 <MainLayout title="Fernando's Blog">
@@ -23,9 +28,21 @@ const blogPosts = await getCollection("blog");
         {siteConfig.description}
       </h1>
 
+      <a class="mr-2" href="/blog/1">Blog paginado</a>
+      <a class="mr-2" href="/authors">Autores</a>
+
       <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
         {blogPosts.map((post) => <TypedBlogPost post={post} />)}
       </div>
     </div>
   </section>
 </MainLayout>
+
+<style>
+  a {
+    @apply text-blue-500 hover:underline p-2  cursor-pointer;
+  }
+  .disabled {
+    @apply bg-gray-600 hover:bg-gray-600;
+  }
+</style>
