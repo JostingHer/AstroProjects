@@ -16,6 +16,8 @@ const blogPosts = await getCollection(
   "blog",
   (post) => post.data.isDraft === false
 );
+
+console.log(blogPosts[0].data);
 ---
 
 <MainLayout title="Fernando's Blog">

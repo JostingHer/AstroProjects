@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/mdx": "^3.1.8",
+    "@astrojs/rss": "^4.0.9",
     "@astrojs/tailwind": "^5.1.2",
     "03-markdown-blog-app": "file:",
     "tailwindcss": "^3.4.14",
