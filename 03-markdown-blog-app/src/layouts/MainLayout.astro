@@ -16,6 +16,12 @@ const { title, ...rest } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Fernando blog"
+      href={new URL("rss.xml", Astro.site)}
+    />
 
     <ViewTransitions />
   </head>
