@@ -151,40 +151,40 @@ declare module 'astro:content' {
 
 	type ContentEntryMap = {
 		"blog": {
-"post-01.mdx": {
-	id: "post-01.mdx";
+"post-01.md": {
+	id: "post-01.md";
   slug: "post-01";
   body: string;
   collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".mdx"] };
+  data: any
+} & { render(): Render[".md"] };
 "post-02.md": {
 	id: "post-02.md";
   slug: "post-02";
   body: string;
   collection: "blog";
-  data: InferEntrySchema<"blog">
+  data: any
 } & { render(): Render[".md"] };
 "post-03.md": {
 	id: "post-03.md";
   slug: "post-03";
   body: string;
   collection: "blog";
-  data: InferEntrySchema<"blog">
+  data: any
 } & { render(): Render[".md"] };
 "post-04.md": {
 	id: "post-04.md";
   slug: "post-04";
   body: string;
   collection: "blog";
-  data: InferEntrySchema<"blog">
+  data: any
 } & { render(): Render[".md"] };
 "post-05.md": {
 	id: "post-05.md";
   slug: "post-05";
   body: string;
   collection: "blog";
-  data: InferEntrySchema<"blog">
+  data: any
 } & { render(): Render[".md"] };
 };
 
@@ -195,22 +195,22 @@ declare module 'astro:content' {
 "alice-johnson": {
 	id: "alice-johnson";
   collection: "author";
-  data: InferEntrySchema<"author">
+  data: any
 };
 "bob-williams": {
 	id: "bob-williams";
   collection: "author";
-  data: InferEntrySchema<"author">
+  data: any
 };
 "jane-doe": {
 	id: "jane-doe";
   collection: "author";
-  data: InferEntrySchema<"author">
+  data: any
 };
 "john-smith": {
 	id: "john-smith";
   collection: "author";
-  data: InferEntrySchema<"author">
+  data: any
 };
 };
 
@@ -218,5 +218,5 @@ declare module 'astro:content' {
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
 
-	export type ContentConfig = typeof import("../../src/content/config.js");
+	export type ContentConfig = never;
 }
