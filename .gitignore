@@ -44,6 +44,7 @@ examples/**/env.d.ts
 
 # IDE-specific files
 .idea
+.vscode
 
 # Workspace-specific settings
 *.code-workspace
