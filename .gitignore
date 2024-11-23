@@ -48,7 +48,7 @@ examples/**/env.d.ts
 # Workspace-specific settings
 *.code-workspace
 
-
+**/.astro/
 .astro/astro/content.d.ts
 .astro/settings.json
 yarn.lock
