@@ -20,7 +20,7 @@ test-results/
 *.log
 
 # Package manager lock files
-package-lock.json
+
 .turbo/
 .eslintcache
 .pnpm-store
