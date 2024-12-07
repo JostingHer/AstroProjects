@@ -1,7 +1,7 @@
 import { defineCollection, reference, z } from 'astro:content';
 
 const blogCollection = defineCollection({
-  type: 'content',
+  type: 'content', // pata archivos markdown o mdx 
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -14,6 +14,8 @@ const blogCollection = defineCollection({
 
          // Relación
       // author: z.string(),
+      // author: reference
+      // igual al nombre de la colección del archivo de configuración
       author: reference('author'),
 
       // Relación
@@ -25,7 +27,7 @@ const blogCollection = defineCollection({
 });
 
 const authorCollection = defineCollection({
-  type: 'data',
+  type: 'data', // para archivos json
   schema: ({ image }) =>
     z.object({
       name: z.string(),
