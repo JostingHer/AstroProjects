@@ -14,7 +14,7 @@ import db from "@astrojs/db";
 export default defineConfig( {
   site: 'https://example.com',
   integrations: [ vue(), mdx(), sitemap(), db()],
-  output: "hybrid",
+  output: "server",
   adapter: cloudflare({ imageService: "cloudflare" }),
   image: { service: passthroughImageService() },
 } );
