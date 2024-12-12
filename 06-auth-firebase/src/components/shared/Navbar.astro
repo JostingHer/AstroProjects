@@ -1,5 +1,5 @@
 ---
-const { isLoggedIn } = Astro.locals;
+
 ---
 
 <!-- component -->
@@ -10,25 +10,19 @@ const { isLoggedIn } = Astro.locals;
       <li class="font-semibold text-gray-700">
         <a href="/">Home</a>
       </li>
-      {
-        isLoggedIn && (
-          <li class="font-semibold text-gray-700">
-            <a href="/protected">Protegido</a>
-          </li>
-        )
-      }
+      <li class="font-semibold text-gray-700">
+        <a href="/protected">Protegido</a>
+      </li>
 
-      {
-        !isLoggedIn ? (
-          <li class="font-semibold text-gray-700">
-            <a href="/login">Ingresar</a>
-          </li>
-        ) : (
-          <li id="logout" class="font-semibold text-gray-700">
-            <a href="#">Salir</a>
-          </li>
-        )
-      }
+      <li class="font-semibold text-gray-700">
+        <a href="/login">Login</a>
+      </li>
+      <li class="font-semibold text-gray-700">
+        <a href="/register">Register</a>
+      </li>
+      <li id="logout" class="font-semibold text-gray-700">
+        <a href="#">Salir</a>
+      </li>
 
       <li>
         <svg
@@ -70,14 +64,3 @@ const { isLoggedIn } = Astro.locals;
     </ul>
   </div>
 </nav>
-
-<script>
-  import { actions } from "astro:actions";
-
-  const logoutElem = document.querySelector("#logout") as HTMLLIElement;
-
-  logoutElem?.addEventListener("click", () => {
-    actions.logout();
-    window.location.href = "/";
-  });
-</script>
