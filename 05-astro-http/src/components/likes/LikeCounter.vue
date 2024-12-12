@@ -46,15 +46,15 @@
     likeCount.value++;
     likeClicks.value++;
   
-    // const { data, error } = await actions.getGreeting({
-    //   age: 21,
-    //   name: 'Josting',
-    //   isActive: true,
-    // });
+    const { data, error } = await actions.getGreeting({
+      age: 21,
+      name: 'Josting',
+      isActive: true,
+    });
   
-    // if (error) {
-    //   return alert('Algo salió mal');
-    // }
+    if (error) {
+      return alert('Algo salió mal');
+    }
   
     console.log({ data });
   
