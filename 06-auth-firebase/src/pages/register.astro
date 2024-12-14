@@ -1,5 +1,13 @@
 ---
 import AuthLayout from "../layouts/AuthLayout.astro";
+
+export const prerender = false;
+
+const emailSaved = Astro.cookies.get("email")?.value ?? "";
+const rememberMe = !!emailSaved;
+
+//console.log(Astro.cookies.get("email"));
+// AstroCookie { value: 'jos@gmail.com'
 ---
 
 <AuthLayout>
@@ -29,7 +37,7 @@ import AuthLayout from "../layouts/AuthLayout.astro";
             class="w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
             type="email"
             name="email"
-            value={""}
+            value={emailSaved}
             placeholder="mail@gmail.com"
           />
         </div>
@@ -49,6 +57,7 @@ import AuthLayout from "../layouts/AuthLayout.astro";
             <input
               id="remember_me"
               name="remember_me"
+              checked={rememberMe}
               type="checkbox"
               class="h-4 w-4 bg-blue-500 focus:ring-blue-400 border-gray-300 rounded"
             />
@@ -66,7 +75,7 @@ import AuthLayout from "../layouts/AuthLayout.astro";
           <button
             type="submit"
             id="btn-submit"
-            class="disabled:bg-gray-300 w-full flex justify-center bg-green-400 hover:bg-green-500 text-gray-100 p-3 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500"
+            class="disabled:bg-gray-300 disabled w-full flex justify-center bg-green-400 hover:bg-green-500 text-gray-100 p-3 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500"
           >
             Ingresar
           </button>
@@ -87,4 +96,35 @@ import AuthLayout from "../layouts/AuthLayout.astro";
     </div>
   </div>
 </AuthLayout>
-<script></script>
+<script>
+  import { actions } from "astro:actions";
+  import Swal from "sweetalert2";
+
+  const form = document.querySelector("form") as HTMLFormElement;
+  const btnSubmit = document.getElementById("btn-submit") as HTMLButtonElement;
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    btnSubmit.setAttribute("disabled", "disabled");
+
+    // OJO: solo funciona si los inputs tienen los atributos name
+    const formData = new FormData(form);
+    // const data1 = Object.fromEntries(formData.entries());
+    // console.log(data1);
+
+    const { data, error } = await actions.registerUser(formData);
+    //console.log(data, error);
+
+    if (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: error.message,
+      });
+      btnSubmit.removeAttribute("disabled");
+      return; // no ejecutar el resto del código
+    }
+
+    window.location.replace("/protected");
+  });
+</script>
