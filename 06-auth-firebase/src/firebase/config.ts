@@ -26,3 +26,5 @@ export const firebase = {
     app,
     auth
 }
+
+console.log("firebase", firebase);

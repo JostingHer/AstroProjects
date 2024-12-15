@@ -1,5 +1,8 @@
 ---
 import AuthLayout from "../layouts/AuthLayout.astro";
+
+const email = Astro.cookies.get("email")?.value ?? "";
+const rememberMe = !!email;
 ---
 
 <AuthLayout>
@@ -18,7 +21,7 @@ import AuthLayout from "../layouts/AuthLayout.astro";
             class="w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
             type="email"
             name="email"
-            value={""}
+            value={email}
             placeholder="mail@gmail.com"
           />
         </div>
@@ -39,6 +42,7 @@ import AuthLayout from "../layouts/AuthLayout.astro";
               id="remember_me"
               name="remember_me"
               type="checkbox"
+              checked={rememberMe}
               class="h-4 w-4 bg-blue-500 focus:ring-blue-400 border-gray-300 rounded"
             />
             <label for="remember_me" class="ml-2 block text-sm text-gray-800">
@@ -77,4 +81,63 @@ import AuthLayout from "../layouts/AuthLayout.astro";
   </div>
 </AuthLayout>
 
-<script></script>
+<!-- se pueden ponder mas scripts -->
+<script>
+  import { firebase } from "@/firebase/config";
+  import { actions } from "astro:actions";
+  import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+  import Swal from "sweetalert2";
+
+  const btnSubmit = document.getElementById("btn-submit") as HTMLInputElement;
+  const btnGoogle = document.getElementById("btn-google") as HTMLInputElement;
+  const form = document.querySelector("form") as HTMLFormElement;
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    btnSubmit.classList.add("disabled");
+
+    const formData = new FormData(form);
+    // const data = Object.fromEntries(formData);
+    // console.log(data);
+
+    const { error, data } = await actions.login(formData);
+    // console.log(data);
+
+    if (error) {
+      Swal.fire({
+        title: "Error",
+        text: error.message,
+        icon: "error",
+      });
+      btnSubmit.removeAttribute("disabled");
+      return; // no ejecutar el resto del código
+    }
+
+    window.location.replace("/protected");
+  });
+
+  btnGoogle.addEventListener("click", async () => {
+    btnGoogle.setAttribute("disabled", "disabled");
+    const provider = new GoogleAuthProvider();
+
+    try {
+      //! Paso 1: obtener la credenciales del lado del cliente
+      const credentials = await signInWithPopup(firebase.auth, provider);
+
+      // Paso 2: Vericar las credenciales en el backend
+      const { error } = await actions.loginWithGoogle(credentials);
+
+      if (error) {
+        alert(error.message);
+        btnGoogle.removeAttribute("disabled");
+        return;
+      }
+
+      btnGoogle.innerText = "Redireccionando...";
+      window.location.replace("/protected");
+    } catch (error) {
+      console.log(error);
+      btnGoogle.removeAttribute("disabled");
+    }
+  });
+</script>
