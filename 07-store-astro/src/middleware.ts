@@ -1,5 +1,4 @@
 import { defineMiddleware } from 'astro:middleware';
-import { getSession } from 'auth-astro/server';
 
 const notAuthenticatedRoutes = ['/login', '/register'];
 
@@ -22,7 +21,7 @@ export const onRequest = defineMiddleware(
     }
 
     // TODO: Eventualmente tenemos que controlar el acceso por roles
-    if (!locals.isAdmin && url.pathname.startsWith('/dashboard')) {
+    if (!isLoggedIn && url.pathname.startsWith('/dashboard')) {
       return redirect('/');
     }
 
