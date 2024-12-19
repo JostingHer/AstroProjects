@@ -1,5 +1,6 @@
 ---
 const { isLoggedIn, isAdmin } = Astro.locals;
+console.log("Astro.locals", Astro.locals);
 ---
 
 <!-- component -->
@@ -34,7 +35,7 @@ const { isLoggedIn, isAdmin } = Astro.locals;
 </nav>
 
 <script>
-  const { signOut } = await import("auth-astro/client");
+  const { signOut, signIn } = await import("auth-astro/client");
 
   const logoutElem = document.querySelector("#logout") as HTMLLIElement;
 

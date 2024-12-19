@@ -4,12 +4,17 @@ import { getSession } from 'auth-astro/server';
 const notAuthenticatedRoutes = ['/login', '/register'];
 
 export const onRequest = defineMiddleware(
-  async ({ url, locals, redirect, request }, next) => {
+  async (context, next) => {
+
+    const { url, locals, redirect, request } = context;
+
     const session = await getSession(request);
+    console.log('session1', session); 
     const isLoggedIn = !!session;
     const user = session?.user;
 
     // TODO:
+    // OJO para usarlo en el template de astro 
     locals.isLoggedIn = isLoggedIn;
     locals.user = null;
     locals.isAdmin = false;

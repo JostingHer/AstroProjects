@@ -3,9 +3,9 @@ import MainLayout from "@/layouts/MainLayout.astro";
 import { getSession } from "auth-astro/server";
 
 const session = await getSession(Astro.request);
+console.log("session3", session);
 
 const { user } = session ?? {};
-console.log(user);
 ---
 
 <MainLayout>

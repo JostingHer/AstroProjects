@@ -19,8 +19,10 @@ export default defineConfig({
         email: { label: 'Correo', type: 'email' },
         password: { label: 'Contraseña', type: 'password' },
       },
-      authorize: async ({ email, password }) => {
-        const [user] = await db
+      authorize: async ( credentials ) => {
+        const { email, password } = credentials;
+
+        const [ user ] = await db
           .select()
           .from(User)
           .where(eq(User.email, `${email}`));
@@ -35,13 +37,17 @@ export default defineConfig({
 
         const { password: _, ...rest } = user;
 
+
+
         return rest;
       },
     }),
   ],
 
   callbacks: {
-    jwt: ({ token, user }) => {
+    jwt: (objeto) => {
+      const { token, user } = objeto;
+
       if (user) {
         token.user = user;
       }
@@ -49,10 +55,12 @@ export default defineConfig({
       return token;
     },
 
-    session: ({ session, token }) => {
-      session.user = token.user as AdapterUser;
+    session: (objeto) => {
 
-      console.log('session', session.user);
+      console.log('session2 = session, token', objeto);
+      
+      const { session, token } = objeto;
+      session.user = token.user as AdapterUser;
 
       return session;
     },
