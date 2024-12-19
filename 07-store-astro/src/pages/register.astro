@@ -1,5 +1,5 @@
 ---
-import AuthLayout from '@/layouts/AuthLayout.astro';
+import AuthLayout from "@/layouts/AuthLayout.astro";
 ---
 
 <AuthLayout>
@@ -88,30 +88,30 @@ import AuthLayout from '@/layouts/AuthLayout.astro';
 </AuthLayout>
 
 <script>
-  import { actions } from 'astro:actions';
-  import Swal from 'sweetalert2';
+  import { actions } from "astro:actions";
+  import Swal from "sweetalert2";
 
-  const form = document.querySelector('form') as HTMLFormElement;
-  const btnSubmit = document.querySelector('#btn-submit') as HTMLButtonElement;
+  const form = document.querySelector("form") as HTMLFormElement;
+  const btnSubmit = document.querySelector("#btn-submit") as HTMLButtonElement;
 
-  form.addEventListener('submit', async (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    btnSubmit.setAttribute('disabled', 'disabled');
+    btnSubmit.setAttribute("disabled", "disabled");
 
     const formData = new FormData(form);
 
-    const { error } = await actions.registerUser(formData);
+    const { error } = await actions.registerUser.safe(formData);
 
     if (error) {
       Swal.fire({
-        icon: 'error',
-        title: 'Credenciales no son correctas',
+        icon: "error",
+        title: "Credenciales no son correctas",
         text: error.message,
       });
-      btnSubmit.removeAttribute('disabled');
+      btnSubmit.removeAttribute("disabled");
       return;
     }
 
-    window.location.replace('/protected');
+    window.location.replace("/protected");
   });
 </script>

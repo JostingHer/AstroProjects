@@ -1,16 +1,17 @@
-
+/// <reference path="../.astro/db-types.d.ts" />
+/// <reference path="../.astro/actions.d.ts" />
 /// <reference types="astro/client" />
 
 interface User {
-    email: string;
-    name: string;
-    avatar: string;
-    emailVerified: boolean;
+  name: string;
+  email: string;
+  // TODO:
+}
+
+declare namespace App {
+  interface Locals {
+    isLoggedIn: boolean;
+    isAdmin: boolean;
+    user: User | null;
   }
-  
-  declare namespace App {
-    interface Locals {
-      isLoggedIn: boolean;
-      user: User | null;
-    }
-  }
+}

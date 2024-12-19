@@ -13,6 +13,7 @@ export default defineConfig({
     //   clientSecret: import.meta.env.GITHUB_CLIENT_SECRET,
     // }),
 
+    // se puede modificar la pantalla de auth por default
     Credentials({
       credentials: {
         email: { label: 'Correo', type: 'email' },
@@ -50,6 +51,9 @@ export default defineConfig({
 
     session: ({ session, token }) => {
       session.user = token.user as AdapterUser;
+
+      console.log('session', session.user);
+
       return session;
     },
   },

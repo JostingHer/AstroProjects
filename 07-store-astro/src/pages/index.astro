@@ -1,7 +1,18 @@
 ---
-import MainLayout from '@/layouts/MainLayout.astro';
+import MainLayout from "@/layouts/MainLayout.astro";
+import { getSession } from "auth-astro/server";
+
+const session = await getSession(Astro.request);
+
+const { user } = session ?? {};
+console.log(user);
 ---
 
 <MainLayout>
-  <h1 class="text-3xl">Home Page</h1>
+  <h1 class="text-3xl text-red-500">Home Page</h1>
+  <pre>
+    <code>
+      { JSON.stringify(user) }
+    </code>
+  </pre>
 </MainLayout>
