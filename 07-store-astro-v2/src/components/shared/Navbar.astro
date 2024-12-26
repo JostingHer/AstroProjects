@@ -1,12 +1,21 @@
 ---
+//import { CartCounter } from "@/components";
+
 const { isLoggedIn, isAdmin } = Astro.locals;
 ---
 
 <!-- component -->
-<nav class="flex justify-between px-20 py-10 items-center bg-white">
-  <h1 class="text-xl text-gray-800 font-bold">AstroStore</h1>
+<nav
+  class="flex justify-between px-20 py-10 items-center fixed top-0 w-full z-10 h-20"
+  style="background-color: #F9F9F9;"
+>
+  <h1 class="text-xl text-gray-800 font-bold">
+    <a href="/">AstroStore</a>
+  </h1>
   <div class="flex items-center">
     <ul class="flex items-center space-x-6">
+      <!-- <CartCounter /> -->
+
       <li class="font-semibold text-gray-700">
         <a href="/">Home</a>
       </li>
@@ -34,12 +43,12 @@ const { isLoggedIn, isAdmin } = Astro.locals;
 </nav>
 
 <script>
-  const { signOut } = await import('auth-astro/client');
+  const { signOut } = await import("auth-astro/client");
 
-  const logoutElem = document.querySelector('#logout') as HTMLLIElement;
+  const logoutElem = document.querySelector("#logout") as HTMLLIElement;
 
-  logoutElem?.addEventListener('click', async () => {
+  logoutElem?.addEventListener("click", async () => {
     await signOut();
-    window.location.href = '/';
+    window.location.href = "/";
   });
 </script>

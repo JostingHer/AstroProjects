@@ -1,0 +1,64 @@
+---
+interface Props {
+  totalPages: number;
+}
+
+const { totalPages } = Astro.props;
+
+const url = Astro.url;
+const pageParam = Number(url.searchParams.get("page") ?? 1);
+
+const currentPage = Math.max(
+  pageParam > totalPages ? totalPages : pageParam,
+  1
+);
+
+const validatedBackPage = Math.max(currentPage - 1, 1);
+const validatedNextPage = Math.min(currentPage + 1, totalPages);
+
+const path = url.pathname;
+---
+
+<div class="flex justify-between my-32">
+  <a href={`${path}?page=${validatedBackPage}`} class="button"> Anteriores </a>
+
+  <span data-totalPages={totalPages}>Página {currentPage} de {totalPages}</span>
+
+  <a href={`${path}?page=${validatedNextPage}`} class="button"> Siguientes </a>
+</div>
+
+<style>
+  .button {
+    @apply p-2 bg-blue-500 text-white rounded;
+  }
+</style>
+
+<script>
+  const spanElement = document.querySelector(
+    "[data-totalPages]"
+  ) as HTMLSpanElement;
+  const url = new URL(window.location.href);
+
+  const pageParam = Number(url.searchParams.get("page") ?? 1);
+  //   const totalPages = 6;
+  const totalPages = Number(spanElement?.dataset.totalpages);
+
+  const currentPage = Math.max(
+    pageParam > totalPages ? totalPages : pageParam,
+    1
+  );
+  const validatedBackPage = Math.max(currentPage - 1, 1);
+  const validatedNextPage = Math.min(currentPage + 1, totalPages);
+
+  if (pageParam !== currentPage && pageParam < 1) {
+    // si la pagina es menor a 1 se agrega el parametro page con el valor 1
+    url.searchParams.set("page", validatedBackPage.toString());
+    window.location.href = url.href;
+  }
+
+  if (pageParam !== currentPage && pageParam > totalPages) {
+    // si la pagina es mayor a 1 se agrega el parametro page
+    url.searchParams.set("page", validatedNextPage.toString());
+    window.location.href = url.href;
+  }
+</script>
