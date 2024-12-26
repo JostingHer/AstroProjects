@@ -96,6 +96,8 @@ const { product, images } = data;
     }
 
     addToCardButton.disabled = true;
+    addToCardButton.textContent = "Añadiendo al carrito...";
+    addToCardButton.style.opacity = ".8";
 
     console.log({
       id: productIdInput.value,

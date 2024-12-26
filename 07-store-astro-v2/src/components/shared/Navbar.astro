@@ -1,5 +1,5 @@
 ---
-//import { CartCounter } from "@/components";
+import { CartCounter } from "../Cart/CartCounter";
 
 const { isLoggedIn, isAdmin } = Astro.locals;
 ---
@@ -14,7 +14,7 @@ const { isLoggedIn, isAdmin } = Astro.locals;
   </h1>
   <div class="flex items-center">
     <ul class="flex items-center space-x-6">
-      <!-- <CartCounter /> -->
+      <CartCounter />
 
       <li class="font-semibold text-gray-700">
         <a href="/">Home</a>
