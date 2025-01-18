@@ -1,5 +1,5 @@
 ---
-import AuthLayout from '@/layouts/AuthLayout.astro';
+import AuthLayout from "@/layouts/AuthLayout.astro";
 ---
 
 <AuthLayout>
@@ -89,47 +89,47 @@ import AuthLayout from '@/layouts/AuthLayout.astro';
 </AuthLayout>
 
 <script>
-  import { actions } from 'astro:actions';
-  import Swal from 'sweetalert2';
+  import { actions } from "astro:actions";
+  import Swal from "sweetalert2";
 
-  const form = document.querySelector('form') as HTMLFormElement;
-  const btnSubmit = document.querySelector('#btn-submit') as HTMLButtonElement;
-  const bntGoogle = document.querySelector('#btn-google') as HTMLButtonElement;
+  const form = document.querySelector("form") as HTMLFormElement;
+  const btnSubmit = document.querySelector("#btn-submit") as HTMLButtonElement;
+  const bntGoogle = document.querySelector("#btn-google") as HTMLButtonElement;
 
-  const { signIn } = await import('auth-astro/client');
+  const { signIn } = await import("auth-astro/client");
 
-  form.addEventListener('submit', async (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    btnSubmit.setAttribute('disabled', 'disabled');
+    btnSubmit.setAttribute("disabled", "disabled");
 
     const formData = new FormData(form);
 
-    // const { error } = await actions.loginUser.safe(formData);
-    const resp = await signIn('credentials', {
-      email: formData.get('email') as string,
-      password: formData.get('password') as string,
-      redirect: false,
-    });
+    // // const { error } = await actions.loginUser.safe(formData);
+    // const resp = await signIn("credentials", {
+    //   email: formData.get("email") as string,
+    //   password: formData.get("password") as string,
+    //   redirect: false,
+    // });
 
-    console.log({ resp });
+    // console.log({ resp });
 
-    if (resp) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Error al ingresar',
-        // text: error.message,
-        text: 'Usuario / Contraseña no son correctos',
-      });
-      btnSubmit.removeAttribute('disabled');
-      return;
-    }
+    // if (resp) {
+    //   Swal.fire({
+    //     icon: "error",
+    //     title: "Error al ingresar",
+    //     // text: error.message,
+    //     text: "Usuario / Contraseña no son correctos",
+    //   });
+    //   btnSubmit.removeAttribute("disabled");
+    //   return;
+    // }
 
     // TODO:
-    window.location.replace('/');
+    window.location.replace("/");
   });
 
-  bntGoogle.addEventListener('click', async () => {
-    bntGoogle.setAttribute('disabled', 'disabled');
+  bntGoogle.addEventListener("click", async () => {
+    bntGoogle.setAttribute("disabled", "disabled");
 
     try {
       //! Paso 1: obtener la credenciales del lado del cliente
@@ -137,16 +137,16 @@ import AuthLayout from '@/layouts/AuthLayout.astro';
       // Paso 2: Vericar las credenciales en el backend
 
       if (true) {
-        alert('error.message');
-        bntGoogle.removeAttribute('disabled');
+        alert("error.message");
+        bntGoogle.removeAttribute("disabled");
         return;
       }
 
-      bntGoogle.innerText = 'Redireccionando...';
-      window.location.replace('/protected');
+      bntGoogle.innerText = "Redireccionando...";
+      window.location.replace("/protected");
     } catch (error) {
       console.log(error);
-      bntGoogle.removeAttribute('disabled');
+      bntGoogle.removeAttribute("disabled");
     }
   });
 </script>

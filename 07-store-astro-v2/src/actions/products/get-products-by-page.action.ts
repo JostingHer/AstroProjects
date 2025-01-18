@@ -42,6 +42,8 @@ export const getProductsByPage = defineAction({
       .limit(limit)
       .offset((page - 1) * 12);
 
+      console.log('products', products);
+
     const productResultSerialized = products.map(({Product, ProductImage}) => {
 
         const imagesByProduct = products.map((image) => {
@@ -55,11 +57,13 @@ export const getProductsByPage = defineAction({
             ...Product,
             images: imagesByProductFiltered.join(','),
         };
-    })
 
+    });
+
+  
     return {
       // products: rows as unknown as ProductWithImages[],
-      products: productResultSerialized as unknown as ProductWithImages[],
+      products: productResultSerialized,
       totalPages: totalPages,
     };
 
